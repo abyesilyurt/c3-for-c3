@@ -1,7 +1,7 @@
 module foo;
 import libc;
 
-# C function from ESP C SDK for demo purposes
+// C function from ESP C SDK for demo purposes
 extern fn void esp_flash_get_size(void* arg, uint* size) @extern("esp_flash_get_size");
 
 fn void app_main() @export @extern("app_main")
