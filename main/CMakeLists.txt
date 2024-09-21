@@ -1,9 +1,10 @@
-idf_component_register(SRCS "hello_world_main.c"
-                    INCLUDE_DIRS "")
+register_component()
+
+add_custom_command(
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/main.a
+    COMMAND c3c --use-stdlib=yes --no-entry --target elf-riscv32 static-lib ${CMAKE_CURRENT_SOURCE_DIR}/main.c3 -o ${CMAKE_CURRENT_BINARY_DIR}/main -O3 -g0
+    COMMENT "Building main.a"
+)
 
 
-
- add_prebuilt_library(prebuilt "../lib/foo.a") 
-  
- # `main` calls a function from the library, so link it to `main` 
- target_link_libraries(${COMPONENT_LIB} PRIVATE prebuilt)
+target_link_libraries(${COMPONENT_TARGET} INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/main.a)
